@@ -207,7 +207,7 @@ final class LoopDataManager {
 
     // MARK: - Background task management
 
-    private var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+    private var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
 
     private func startBackgroundTask() {
         endBackgroundTask()
@@ -217,9 +217,9 @@ final class LoopDataManager {
     }
 
     private func endBackgroundTask() {
-        if backgroundTask != UIBackgroundTaskInvalid {
-            UIApplication.shared.endBackgroundTask(backgroundTask)
-            backgroundTask = UIBackgroundTaskInvalid
+        if backgroundTask != UIBackgroundTaskIdentifier.invalid {
+            UIApplication.shared.endBackgroundTask(convertToUIBackgroundTaskIdentifier(backgroundTask.rawValue))
+            backgroundTask = UIBackgroundTaskIdentifier.invalid
         }
     }
 }
@@ -1178,4 +1178,9 @@ protocol LoopDataManagerDelegate: class {
     ///   - completion: A closure called once on completion
     ///   - result: The enacted basal
     func loopDataManager(_ manager: LoopDataManager, didRecommendBasalChange basal: (recommendation: TempBasalRecommendation, date: Date), completion: @escaping (_ result: Result<DoseEntry>) -> Void) -> Void
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIBackgroundTaskIdentifier(_ input: Int) -> UIBackgroundTaskIdentifier {
+	return UIBackgroundTaskIdentifier(rawValue: input)
 }

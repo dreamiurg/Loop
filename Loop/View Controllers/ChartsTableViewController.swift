@@ -24,21 +24,21 @@ enum RefreshContext {
 }
 
 extension RefreshContext: Hashable {
-    var hashValue: Int {
+    func hash(into hasher: inout Hasher) {
         switch self {
         case .status:
-            return 1
+            hasher.combine(1)
         case .glucose:
-            return 2
+            hasher.combine(2)
         case .insulin:
-            return 3
+            hasher.combine(3)
         case .carbs:
-            return 4
+            hasher.combine(4)
         case .targets:
-            return 5
+            hasher.combine(5)
         case .size:
             // We don't use CGSize in our determination of hash nor equality
-            return 6
+            hasher.combine(6)
         }
     }
 
@@ -50,7 +50,7 @@ extension RefreshContext: Hashable {
 extension Set where Element == RefreshContext {
     /// Returns the size value in the set if one exists
     var newSize: CGSize? {
-        guard let index = index(of: .size(.zero)),
+        guard let index = firstIndex(of: .size(.zero)),
             case .size(let size) = self[index] else
         {
             return nil
@@ -86,10 +86,10 @@ class ChartsTableViewController: UITableViewController, UIGestureRecognizerDeleg
 
         let notificationCenter = NotificationCenter.default
         notificationObservers += [
-            notificationCenter.addObserver(forName: .UIApplicationWillResignActive, object: UIApplication.shared, queue: .main) { [weak self] _ in
+            notificationCenter.addObserver(forName: UIApplication.willResignActiveNotification, object: UIApplication.shared, queue: .main) { [weak self] _ in
                 self?.active = false
             },
-            notificationCenter.addObserver(forName: .UIApplicationDidBecomeActive, object: UIApplication.shared, queue: .main) { [weak self] _ in
+            notificationCenter.addObserver(forName: UIApplication.didBecomeActiveNotification, object: UIApplication.shared, queue: .main) { [weak self] _ in
                 self?.active = true
             }
         ]
@@ -225,6 +225,8 @@ class ChartsTableViewController: UITableViewController, UIGestureRecognizerDeleg
                     row.subtitleLabel?.alpha = alpha
                 })
             }
+        @unknown default:
+            fatalError()
         }
     }
 }

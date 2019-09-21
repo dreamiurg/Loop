@@ -273,6 +273,8 @@ extension WatchDataManager: WCSessionDelegate {
             }
         case .inactive, .notActivated:
             break
+        @unknown default:
+            fatalError()
         }
     }
 

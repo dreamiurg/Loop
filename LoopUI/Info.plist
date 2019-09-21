@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.9.6</string>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<string>63</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
 </dict>

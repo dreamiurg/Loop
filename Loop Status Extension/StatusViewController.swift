@@ -107,6 +107,8 @@ class StatusViewController: UIViewController, NCWidgetProviding {
             glucoseChartContentView.isHidden = true
         case .expanded:
             glucoseChartContentView.isHidden = false
+        @unknown default:
+            fatalError()
         }
 
         observers = [
@@ -128,6 +130,8 @@ class StatusViewController: UIViewController, NCWidgetProviding {
             preferredContentSize = CGSize(width: maxSize.width, height: compactHeight)
         case .expanded:
             preferredContentSize = CGSize(width: maxSize.width, height: compactHeight + 100)
+        @unknown default:
+            fatalError()
         }
     }
 
@@ -305,6 +309,8 @@ class StatusViewController: UIViewController, NCWidgetProviding {
             glucoseChartContentView.isHidden = true
         case .expanded:
             glucoseChartContentView.isHidden = false
+        @unknown default:
+            fatalError()
         }
 
         // Right now we always act as if there's new data.
