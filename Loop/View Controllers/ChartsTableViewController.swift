@@ -171,7 +171,7 @@ class ChartsTableViewController: UITableViewController, UIGestureRecognizerDeleg
             return UIApplication.shared.applicationState == .active
         }
         set {
-            log.debug("[reloadData] for app change to active: %d", active)
+            log.debug("[reloadData] for app change to active: %d", newValue)
             reloadData()
         }
     }
